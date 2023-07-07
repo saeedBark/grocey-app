@@ -21,11 +21,9 @@ class _HomeScreenState extends State<HomeScreen> {
         secondary: Icon(themeState.getDarkTheme
             ? Icons.dark_mode_outlined
             : Icons.light_mode_outlined),
-        onChanged: (bool value) {
-          setState(() {
-            themeState.setDarkTheme = value;
-          });
-        },
+        onChanged: (bool value) => setState(() {
+          themeState.setDarkTheme = value;
+        }),
         value: themeState.getDarkTheme,
       )),
     );

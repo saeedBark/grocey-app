@@ -6,17 +6,17 @@ import 'package:provider/provider.dart';
 import 'consts/theme_data.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const MyAppGrocey());
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyAppGrocey extends StatefulWidget {
+  const MyAppGrocey({Key? key}) : super(key: key);
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<MyAppGrocey> createState() => _MyAppGroceyState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppGroceyState extends State<MyAppGrocey> {
   DarkThemeProvider themeChangeProvider = DarkThemeProvider();
 
   void getCurrentAppTheme() async {
@@ -34,9 +34,9 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) {
-          return themeChangeProvider;
-        })
+        ChangeNotifierProvider(
+          create: (_) => themeChangeProvider,
+        )
       ],
       child:
           Consumer<DarkThemeProvider>(builder: (context, themeProvider, child) {
