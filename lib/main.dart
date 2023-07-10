@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_grocey_app/provider/dark_theme_provider.dart';
+import 'package:my_grocey_app/screens/btm_bar.dart';
 import 'package:my_grocey_app/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -44,7 +45,7 @@ class _MyAppGroceyState extends State<MyAppGrocey> {
             debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
             theme: Styles.themeData(themeProvider.getDarkTheme, context),
-            home: const HomeScreen());
+            home: const BottomBarScreen());
       }),
     );
   }
