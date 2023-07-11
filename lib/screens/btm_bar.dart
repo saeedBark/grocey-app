@@ -18,12 +18,12 @@ class BottomBarScreen extends StatefulWidget {
 }
 
 class _UserScreenState extends State<BottomBarScreen> {
-  int cerrentindexBottom = 2;
-  final List _pages = [
-    const HomeScreen(),
-    const CategoryiesScreen(),
-    const CartScreen(),
-    const UserScreen(),
+  int cerrentindexBottom = 0;
+  final List<Map<String, dynamic>> _pages = [
+    {'page': const HomeScreen(), 'titel': 'Home Screen'},
+    {'page': const CategoryiesScreen(), 'titel': 'Category Screen'},
+    {'page': const CartScreen(), 'titel': 'Cart Screen'},
+    {'page': const UserScreen(), 'titel': 'User Screen'}
   ];
   void _selectPage(int index) => setState(
         () => cerrentindexBottom = index,
@@ -35,9 +35,9 @@ class _UserScreenState extends State<BottomBarScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Main'),
+        title: Text(_pages[cerrentindexBottom]['titel']),
       ),
-      body: _pages[cerrentindexBottom],
+      body: _pages[cerrentindexBottom]['page'],
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: _isDark ? Theme.of(context).cardColor : Colors.white,
         unselectedItemColor: _isDark ? Colors.white10 : Colors.black12,
