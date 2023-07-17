@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:my_grocey_app/screens/cart.dart';
 import 'package:my_grocey_app/screens/categories.dart';
 import 'package:my_grocey_app/screens/home_screen.dart';
