@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:provider/provider.dart';
@@ -20,64 +21,122 @@ class _UserScreenState extends State<UserScreen> {
     return Scaffold(
         body: Center(
       child: SingleChildScrollView(
-        child: Column(
-          children: [
-            _ListTile(
-              title: 'Address',
-              color: color,
-              subTitle: 'subtitle here',
-              leading: Icons.person_2_outlined,
-              trailing: Icons.arrow_forward_ios,
-              onTap: () {},
-            ),
-            _ListTile(
-              title: 'Address',
-              color: color,
-              subTitle: 'subtitle here',
-              leading: Icons.person_2_outlined,
-              trailing: Icons.arrow_forward_ios,
-              onTap: () {},
-            ),
-            _ListTile(
-              title: 'Address',
-              color: color,
-              subTitle: 'subtitle here',
-              leading: Icons.person_2_outlined,
-              trailing: Icons.arrow_forward_ios,
-              onTap: () {},
-            ),
-            _ListTile(
-              title: 'Orders',
-              color: color,
-              leading: Icons.badge,
-              trailing: Icons.arrow_forward_ios,
-              onTap: () {},
-            ),
-            _ListTile(
-              title: 'WishList',
-              color: color,
-              leading: Icons.heart_broken,
-              trailing: Icons.arrow_forward_ios,
-              onTap: () {},
-            ),
-            SwitchListTile(
-              title: const Text('Theme'),
-              secondary: Icon(themeState.getDarkTheme
-                  ? Icons.dark_mode_outlined
-                  : Icons.light_mode_outlined),
-              onChanged: (bool value) => setState(() {
-                themeState.setDarkTheme = value;
-              }),
-              value: themeState.getDarkTheme,
-            ),
-            _ListTile(
-              title: 'Forget Password',
-              color: color,
-              leading: Icons.password_outlined,
-              trailing: Icons.arrow_forward_ios,
-              onTap: () {},
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              RichText(
+                text: TextSpan(
+                  text: 'Hi, ',
+                  style: const TextStyle(
+                    color: Colors.cyan,
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  children: <TextSpan>[
+                    TextSpan(
+                        text: 'My Name',
+                        style: const TextStyle(
+                          fontSize: 26,
+                          color: Colors.black54,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            print('My name is pressed');
+                          }),
+                  ],
+                ),
+              ),
+              TextWidget(
+                text: 'Email@email.com',
+                color: color,
+                fontSize: 18,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              const Divider(
+                thickness: 1,
+                color: Colors.grey,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              _ListTile(
+                title: 'Address',
+                color: color,
+                subTitle: 'subtitle here',
+                leading: Icons.person_2_outlined,
+                trailing: Icons.arrow_forward_ios,
+                onTap: () => showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: const Text('adress'),
+                      content: TextFormField(
+                        decoration:
+                            const InputDecoration(hintText: 'write comment'),
+                      ),
+                      actions: [
+                        IconButton(onPressed: () {}, icon: Text('Save'))
+                      ],
+                    );
+                  },
+                ),
+              ),
+              _ListTile(
+                title: 'Others',
+                color: color,
+                leading: Icons.other_houses_outlined,
+                trailing: Icons.arrow_forward_ios,
+                onTap: () {},
+              ),
+              _ListTile(
+                title: 'Viewed',
+                color: color,
+                leading: Icons.view_agenda_outlined,
+                trailing: Icons.arrow_forward_ios,
+                onTap: () {},
+              ),
+              _ListTile(
+                title: 'WishList',
+                color: color,
+                leading: Icons.heart_broken_outlined,
+                trailing: Icons.arrow_forward_ios,
+                onTap: () {},
+              ),
+              SwitchListTile(
+                title: TextWidget(
+                  text: themeState.getDarkTheme ? 'dark Theme' : 'light theme',
+                  color: color,
+                  fontSize: 22,
+                ),
+                secondary: Icon(themeState.getDarkTheme
+                    ? Icons.dark_mode_outlined
+                    : Icons.light_mode_outlined),
+                onChanged: (bool value) => setState(() {
+                  themeState.setDarkTheme = value;
+                }),
+                value: themeState.getDarkTheme,
+              ),
+              _ListTile(
+                title: 'Forget Password',
+                color: color,
+                leading: Icons.password_outlined,
+                trailing: Icons.arrow_forward_ios,
+                onTap: () {},
+              ),
+              _ListTile(
+                title: 'Logout',
+                color: color,
+                leading: Icons.logout_outlined,
+                trailing: Icons.arrow_forward_ios,
+                onTap: () {},
+              ),
+            ],
+          ),
         ),
       ),
     ));
