@@ -14,6 +14,13 @@ class UserScreen extends StatefulWidget {
 }
 
 class _UserScreenState extends State<UserScreen> {
+  final TextEditingController controller = TextEditingController();
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
@@ -65,27 +72,14 @@ class _UserScreenState extends State<UserScreen> {
                 height: 20,
               ),
               _ListTile(
-                title: 'Address',
-                color: color,
-                subTitle: 'subtitle here',
-                leading: Icons.person_2_outlined,
-                trailing: Icons.arrow_forward_ios,
-                onTap: () => showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: const Text('adress'),
-                      content: TextFormField(
-                        decoration:
-                            const InputDecoration(hintText: 'write comment'),
-                      ),
-                      actions: [
-                        IconButton(onPressed: () {}, icon: Text('Save'))
-                      ],
-                    );
-                  },
-                ),
-              ),
+                  title: 'Address',
+                  color: color,
+                  subTitle: 'subtitle here',
+                  leading: Icons.person_2_outlined,
+                  trailing: Icons.arrow_forward_ios,
+                  onTap: () async {
+                    return await showAdressDialog();
+                  }),
               _ListTile(
                 title: 'Others',
                 color: color,
@@ -133,13 +127,60 @@ class _UserScreenState extends State<UserScreen> {
                 color: color,
                 leading: Icons.logout_outlined,
                 trailing: Icons.arrow_forward_ios,
-                onTap: () {},
+                onTap: () async {
+                  await showLogoutDialog();
+                },
               ),
             ],
           ),
         ),
       ),
     ));
+  }
+
+  Future<void> showAdressDialog() {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('adress'),
+          content: TextField(
+            controller: controller,
+            onChanged: (value) {
+              print(controller);
+            },
+            decoration: const InputDecoration(hintText: 'write comment'),
+          ),
+          actions: [IconButton(onPressed: () {}, icon: const Text('Save'))],
+        );
+      },
+    );
+  }
+
+  Future<void> showLogoutDialog() async {
+    return await showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Sign Out'),
+            content: const Text('Are you sure to wanna sign out?'),
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    if (Navigator.canPop(context)) Navigator.pop(context);
+                  },
+                  icon: const Text('Cancel')),
+              IconButton(
+                onPressed: () {},
+                icon: const Text(
+                  'Ok',
+                  style: TextStyle(fontSize: 22),
+                ),
+                iconSize: 30,
+              ),
+            ],
+          );
+        });
   }
 }
 
