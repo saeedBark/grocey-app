@@ -1,30 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:my_grocey_app/widgets/text_widget.dart';
+import 'package:provider/provider.dart';
+
+import '../provider/dark_theme_provider.dart';
 
 class CategoryWidget extends StatelessWidget {
-  const CategoryWidget({Key? key}) : super(key: key);
+  final String imgPath;
+  final Color passedColor;
+  final String title;
+  const CategoryWidget(
+      {Key? key,
+      required this.imgPath,
+      required this.passedColor,
+      required this.title})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final themeState = Provider.of<DarkThemeProvider>(context);
+    final Color color = themeState.getDarkTheme ? Colors.white : Colors.black;
     double _screenSize = MediaQuery.of(context).size.width;
     return Container(
       decoration: BoxDecoration(
-          color: Colors.red.withOpacity(0.2),
+          color: passedColor.withOpacity(0.2),
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: Colors.red.withOpacity(0.7))),
+          border: Border.all(color: passedColor.withOpacity(0.7))),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
             height: _screenSize * 0.3,
             width: _screenSize * 0.3,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: NetworkImage(
-                        'https://images.unsplash.com/photo-1604543456734-4559dd906a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=780&q=80'),
-                    fit: BoxFit.fill)),
+                    image: NetworkImage(imgPath), fit: BoxFit.fill)),
           ),
+          TextWidget(text: title, color: color, fontSize: 20)
         ],
       ),
     );
